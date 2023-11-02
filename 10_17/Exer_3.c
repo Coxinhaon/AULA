@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 int main(){
     FILE * arq;
@@ -8,10 +9,16 @@ int main(){
     arq = fopen("arq.txt","r+");
 
     while((c = fgetc(arq)) != EOF){
-        if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u'){
+        switch(tolower(c)){
+            case 'a':
+            case 'e':
+            case 'i':
+            case 'o':
+            case 'u':
             con++;
-        }
-    
+            break;
+        };
+
     };
 
     printf ("a quantidade de vogais é %i",con);

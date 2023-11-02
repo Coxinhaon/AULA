@@ -9,7 +9,7 @@ int main(){
 
     for (i=0;i<100;i++){
         fprintf(arq,"%i\n",i+1);
-        printf("su \n");
+
     };
 
 

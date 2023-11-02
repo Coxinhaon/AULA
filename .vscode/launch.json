@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/juand/OneDrive/Documentos/C_aula",
-      "program": "c:/Users/juand/OneDrive/Documentos/C_aula/build/Debug/outDebug",
+      "cwd": "c:/Users/juand/OneDrive/Documentos/AULA_C",
+      "program": "c:/Users/juand/OneDrive/Documentos/AULA_C/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

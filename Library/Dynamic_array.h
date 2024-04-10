@@ -3,21 +3,21 @@
 
 #ifndef DYNAMIC_ARRAY_H
 #define DYNAMIC_ARRAY_H
-    struct dynamic_array{
+    typedef struct dynamic_array{
         int size;
         int *data;
         int capacity;
-    };
-    typedef d_array struct dynamic_array; /// colocar apelido na struct
+    }d_array;
+    //typedef d_array struct dynamic_array; /// colocar apelido na struct
     void init_d_array(d_array *v){
         if (v){
-            *v.size = 0; /// qualquer coisa tentar com (*v).size = 0 ou v-->size;
-            *v.data = NULL;
-            *v.capacity = 0;
+            (*v).size = 0; /// qualquer coisa tentar com (*v).size = 0 ou v-->size;
+            (*v).data = NULL;
+            (*v).capacity = 0;
         }
     }
     d_array * construct_d_array(){
-        d_array *v = malloc(sizeof(d_array));
+        d_array *v = (d_array*)malloc(sizeof(d_array));
         init_d_array(v);
         return v;
     }
@@ -25,23 +25,23 @@
         if (!v){ 
             return;
         }
-        if(*v.capacity == 0){
-            *v.data = malloc(sizeof(int)*1)
-            *v.capacity = 1;
+        if((*v).capacity == 0){
+            (*v).data = (int*)malloc(sizeof(int)*1);
+            (*v).capacity = 1;
         }
-        if(*v.size >= *v.capacity){
-            *v.capacity = *v.capacity * 2;
-            *v.data = realloc(*v.data,*v.capacity * sizeof(int))
+        if((*v).size >= (*v).capacity){
+            (*v).capacity = (*v).capacity * 2;
+            (*v).data =(int*)realloc((*v).data,(*v).capacity * sizeof(int));
         }
-        *v.data[size] = new_value;
-        *v.size ++;
+        (*v).data[(*v).size] = new_value;
+        (*v).size ++;
     }
     void destruct_d_array(d_array *v){
         if(!v){ 
             return;
         }; 
-        if (*v.data){
-            free(*v.data);
+        if ((*v).data){
+            free((*v).data);
         }
         free(v);
     }
@@ -49,40 +49,46 @@
         if(!v){
             return;
         };
-        for(int i = 0;i<size;i++){
-            if ( *v.data[i] == remove_value){
-                for(int j = i;j < size-1;j++){
-                    *v.data[j] = *v.data[j+1];
+        for(int i = 0;i<(*v).size;i++){
+            if ( (*v).data[i] == remove_value){
+                for(int j = i;j < (*v).size-1;j++){
+                    (*v).data[j] = (*v).data[j+1];
                 }
-                *v.size --;
+                (*v).size --;
             }
         }
-        if (*v.size < *v.capacity/2){
-            *v.capacity = *v.size;
-            *v.data = realloc(*v.data,*v.capacity * sizeof(int))
+        if ((*v).size < (*v).capacity/2){
+            (*v).capacity = (*v).size;
+            (*v).data =(int*) realloc((*v).data,(*v).capacity * sizeof(int));
         }
     }
     int *  get_d_array(d_array *v,int index){
-        if (index < 0 || index >= *v.size){
+        if (index < 0 || index >= (*v).size){
             printf("out of range");
             return NULL;
         }
-        return &(*v.data[i]);
+        return &((*v).data[index]);
     }
-    void sort_d_array(d_array *v){
-        if (v){
-            buublesort(*v.data;*v.size);
-        }
-    }
+    // void sort_d_array(d_array *v){
+    //     if (v){
+    //         buublesort((*v).data;(*v).size);
+    //     }
+    // }
     int get_index_d_array(d_array *v,int search_value){
         if(!v){
             return NULL;
         }
-        for(int i = 0;i < size;i++){
-            if(*v.data[i] == search_value){
+        for(int i = 0;i < (*v).size;i++){
+            if((*v).data[i] == search_value){
                 return i;
             }
         }
         return NULL;
     }
+    
+    int * get_size_d_array(d_array *v){
+        return (*v).size;
+    }
+
+
 #endif

@@ -64,6 +64,9 @@ int main(){
         scanf("%i",&collum);
         v[line][collum] = 2;
     }
+    for(int i=0;i<4;i++){
+        free(v[i]);
+    }
     free(v);
     return 1;
 }

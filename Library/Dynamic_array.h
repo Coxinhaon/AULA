@@ -86,7 +86,7 @@
         return NULL;
     }
     
-    int * get_size_d_array(d_array *v){
+    int  get_size_d_array(d_array *v){
         return (*v).size;
     }
 

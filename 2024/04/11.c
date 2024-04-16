@@ -1,4 +1,5 @@
-#include "Dynamic_array.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 void print_matrix(int ** v,int size_line,int size_collum){
     for(int i = 0;i<size_line;++i){

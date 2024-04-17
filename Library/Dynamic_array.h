@@ -92,3 +92,84 @@
 
 
 #endif
+#ifndef LIST_H
+#define LIST_H
+    struct node;
+    typedef struct node node;
+    struct node{
+        int id;
+        void * data;
+        node * next;
+    }
+    struct list;
+    typedef struct list list;
+    struct list{
+        int size;
+        node * head;
+    }
+    list * construct_list(){
+        list * new_list = malloc(sizeof(list));
+        (*new_list).size = 0;
+        (*new_list).head = NULL;
+        return new_list;
+    }
+    void destruct_list(list * l){
+        if(l){
+            destruct_node((*l).head);
+        }
+        free(l);
+    }
+    void insert_list(list * l,int id){
+        if(!p){
+            return;
+        }
+        if(!(*l).head){
+            (*l).head = construct_node();
+            return;
+        }
+        // node ** next = &(*l).head;
+        // while(*next){
+        //     *next = &(**next).next; //(*next)->next 
+        // }
+        // *next = construct_node(id);
+        node*n = construct_node(id);
+        insert_node((*p).head,n); // insert up é só colocar (*p).head = insert_node_up()
+    }
+    void insert_node(node * h,node * n){
+        if(!(*h).next){
+            (*h).next = n;
+        }else{
+            insert_node((*h).next,n);
+        }
+    }
+    node * insert_node_up(node *h,node *n){
+        if((*n).id<(*h).id){
+            (*n).next = h;
+            return n;
+        }
+        if(!(*h).next){
+            (*h).next = n;
+            return h;
+        }
+        (*h).next = insert_node_up((*h).next,n)
+        return h;
+    }
+    void insert_note_point(node **h,node *n){
+        if ((*n).id<(**h).id){///(*h)->id
+            (*n).next = *h;
+            *h = n;
+            return;
+        }
+        if (!(**h).next){ // (*h)->next
+            (*h).next = n;
+            return;
+        }
+        insert_note_point(&(*h).next,n);
+    }
+    void construct_node(int id){
+        node * new_node = malloc(sizeof(node));
+        (*new_node).id = id;
+        (*new_node).next = NULL;
+        return new_node;
+    }
+#endif

@@ -173,3 +173,45 @@
         return new_node;
     }
 #endif
+#ifndef SORT_ARRAY_H
+#define SORT_ARRAY_H
+    ///Algoritmo de ordenação
+    void merge(int *left_array,int* right_array,int left_size,int right_size){
+        int *final_array = left_array;
+        int i,j,k;
+        int*temporary_left_array = (int*)malloc(left_size*sizeof(int));
+        int*temporary_right_array = (int*)malloc(right_size*sizeof(int));
+        for(int i=0;i < left_size;i++){
+            temporary_left_array[i] = left_array[i];
+        }
+        for(int i=0;i < right_size;i++){
+            temporary_right_array[i] = right_array[i];
+        }
+        i=j=k=0;
+        while(i < left_size && j < right_size){
+            if (temporary_left_array[i]<temporary_right_array[j]){
+                final_array[k++] = temporary_left_array[i++];
+            }else{
+                final_array[k++] = temporary_right_array[j++];
+            }
+        }
+        while(i < left_size){
+            final_array[k++] = temporary_left_array[i++];
+        }
+        while(j < right_size){
+            final_array[k++] = temporary_right_array[j++];
+        }
+        free(temporary_left_array);
+        free(temporary_right_array);
+    }
+    void mergesort(int *array,int array_size){
+        if(array_size == 0){
+            return;
+        }
+        int left_size = array_size/2;
+        int right_size = array_size/2 + (array_size%2);
+        mergesort(array,left_size);
+        mergesort(array+left_size,right_size);
+        merge(array,array+left_size,left_size,right_size);
+    }
+#endif

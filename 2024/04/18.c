@@ -84,7 +84,13 @@
     }
 
 
+int binary_to_decimal(int binary,int size){
+    if (size == 1){
+        return (binary&1)*(1<<size);
+    }
+    return (binary&1)*(1<<size)+binary_to_decimal(binary/10,size-1);
 
+}
 int main(){
     d_array *array = construct_d_array();
     int number;

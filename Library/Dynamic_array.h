@@ -176,7 +176,7 @@
 #ifndef SORT_ARRAY_H
 #define SORT_ARRAY_H
     ///Algoritmo de ordenação
-    void merge(int *left_array,int* right_array,int left_size,int right_size){
+void merge(int *left_array,int* right_array,int left_size,int right_size){
         int *final_array = left_array;
         int i,j,k;
         int*temporary_left_array = (int*)malloc(left_size*sizeof(int));
@@ -205,7 +205,7 @@
         free(temporary_right_array);
     }
     void mergesort(int *array,int array_size){
-        if(array_size == 0){
+        if(array_size < 2) {
             return;
         }
         int left_size = array_size/2;

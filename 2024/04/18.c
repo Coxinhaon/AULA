@@ -83,13 +83,19 @@
         return (*v).size;
     }
 
-
 int binary_to_decimal(int binary,int size){
     if (size == 1){
-        return (binary&1)*(1<<size);
+        return (binary&1);
     }
-    return (binary&1)*(1<<size)+binary_to_decimal(binary/10,size-1);
+    return (binary&1)*(1<<size-1)+binary_to_decimal(binary/10,size-1);
 
+}
+int binary_to_decimal_v2(int binary,int size){
+    if (binary <= 1){
+        return binary*(1<<size);
+    }
+    return (binary&1) * (1<<size) + binary_to_decimal_v2(binary/10,size + 1);
+    
 }
 int main(){
     d_array *array = construct_d_array();

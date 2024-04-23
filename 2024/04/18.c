@@ -105,7 +105,7 @@ int main(){
     while(1){
         printf("escreva o numero ou 0 para parar");
         scanf("%i",&number);
-        if(number == 0){
+        if(number <= 2){
             break;
         }else{
             insert_d_array(array,number);

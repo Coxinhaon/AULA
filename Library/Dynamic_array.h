@@ -69,11 +69,11 @@
         }
         return &((*v).data[index]);
     }
-    // void sort_d_array(d_array *v){
-    //     if (v){
-    //         buublesort((*v).data;(*v).size);
-    //     }
-    // }
+    void sort_d_array(d_array *v){
+         if (v){
+             mergesort((*v).data;(*v).size);
+         }
+    }
     int get_index_d_array(d_array *v,int search_value){
         if(!v){
             return NULL;
@@ -176,7 +176,7 @@
 #ifndef SORT_ARRAY_H
 #define SORT_ARRAY_H
     ///Algoritmo de ordenação
-void merge(int *left_array,int* right_array,int left_size,int right_size){
+    void merge(int *left_array,int* right_array,int left_size,int right_size){
         int *final_array = left_array;
         int i,j,k;
         int*temporary_left_array = (int*)malloc(left_size*sizeof(int));
@@ -213,5 +213,25 @@ void merge(int *left_array,int* right_array,int left_size,int right_size){
         mergesort(array,left_size);
         mergesort(array+left_size,right_size);
         merge(array,array+left_size,left_size,right_size);
+    }
+    void select_sort(int *array,int size){
+        int minimum_element;
+        for(int i = 0;i<size;++i){
+            minimum_element = i;
+            for(int j = 0;j<size;j++){
+                if(array[minimum_element] > array[j]){
+                    minimum_element = j;
+                }
+            }
+            swap(array[minimum_element],array[i]);
+        }
+    }
+#endif
+#ifdef RANDOM_FUNCTION_H
+#define RANDOM_FUNCTION_H
+    void swap(int * number_1,int * number_2){
+        int temporary = *number_1;
+        *number_1  = *number_2;
+        *number_2 = temporary;
     }
 #endif

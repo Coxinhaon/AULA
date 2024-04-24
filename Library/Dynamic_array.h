@@ -90,88 +90,182 @@
         return (*v).size;
     }
 
-
+    ///array encadeado
+    typedef  struct array{
+        int size;
+        int capacity;
+        int begin;
+        int end;
+        int *ids;
+    }array;
+    void insert_array(array *v,int id){
+        if(v-> ids == NULL){
+            v-> capacity = 2;
+            v-> ids = realloc(v->ids,sizeof(int)*v->capacity);
+            v-> ids[v->size++] = id;
+            return;
+        }
+        if(v-> size >= v-> capacity){
+            v->capacity += v-> capacity/2;
+            v-> ids = realloc(v->ids,sizeof(int)*v->capacity);
+        }
+    }
+    
 #endif
 #ifndef LIST_H
 #define LIST_H
+    // struct node;
+    // typedef struct node node;
+    // struct node{
+    //     int id;
+    //     void * data;
+    //     node * next;
+    // }
+    // struct list;
+    // typedef struct list list;
+    // struct list{
+    //     int size;
+    //     node * head;
+    // }
+    // list * construct_list(){
+    //     list * new_list = malloc(sizeof(list));
+    //     (*new_list).size = 0;
+    //     (*new_list).head = NULL;
+    //     return new_list;
+    // }
+    // void destruct_list(list * l){
+    //     if(l){
+    //         destruct_node((*l).head);
+    //     }
+    //     free(l);
+    // }
+    // void insert_list(list * l,int id){
+    //     if(!p){
+    //         return;
+    //     }
+    //     if(!(*l).head){
+    //         (*l).head = construct_node();
+    //         return;
+    //     }
+    //     // node ** next = &(*l).head;
+    //     // while(*next){
+    //     //     *next = &(**next).next; //(*next)->next 
+    //     // }
+    //     // *next = construct_node(id);
+    //     node*n = construct_node(id);
+    //     insert_node((*p).head,n); // insert up é só colocar (*p).head = insert_node_up()
+    // }
+    // void insert_node(node * h,node * n){
+    //     if(!(*h).next){
+    //         (*h).next = n;
+    //     }else{
+    //         insert_node((*h).next,n);
+    //     }
+    // }
+    // node * insert_node_up(node *h,node *n){
+    //     if((*n).id<(*h).id){
+    //         (*n).next = h;
+    //         return n;
+    //     }
+    //     if(!(*h).next){
+    //         (*h).next = n;
+    //         return h;
+    //     }
+    //     (*h).next = insert_node_up((*h).next,n)
+    //     return h;
+    // }
+    // void insert_note_point(node **h,node *n){
+    //     if ((*n).id<(**h).id){///(*h)->id
+    //         (*n).next = *h;
+    //         *h = n;
+    //         return;
+    //     }
+    //     if (!(**h).next){ // (*h)->next
+    //         (*h).next = n;
+    //         return;
+    //     }
+    //     insert_note_point(&(*h).next,n);
+    // }
+    // void construct_node(int id){
+    //     node * new_node = malloc(sizeof(node));
+    //     (*new_node).id = id;
+    //     (*new_node).next = NULL;
+    //     return new_node;
+    // }
+
+    /// lista aula 2
+//    /// declarar node * n = NULL e depois fazer insert
+//     struct node;
+//     typedef struct node node;
+//     struct node{
+//         int id;
+//         node * next;
+//     };
+//     void insert_list_v2(node ** n,int id,node *n1){
+//         if (*n == n1){
+//             (*n) = malloc(sizeof(node));
+//             (*n)-> id = id;
+//             (*n)->next = n1;
+//         }else{
+//             insert_list_v2(&((*n)->next),id,n1);
+//         }
+//     }
+//     void insert_list_v3(node **n,int id){
+//         if(!*n){
+//             (*n) = malloc (sizeof(node));
+//             (*n)-> id = id;
+//             (*n)-> next = *n;
+//         }else{
+//             node * head = (*n)-> next;
+//             (*n)->next = malloc(sizeof(node));
+//             (*n)->next->id = id;
+//             (*n)->next->next = head;
+//             (*n)= (*n) -> next;
+//         }
+//     }
+
+//     void erase(node ** n,int id){
+//         if(!*n){
+//             return;
+//         }
+//         if ((*n)->id == id){
+//             node * temp = (*n)-> next;
+//             free(*n);
+//             *n = temp;
+//         }
+//     }
+        //// lista com duplamente encadeada
     struct node;
     typedef struct node node;
     struct node{
         int id;
-        void * data;
-        node * next;
-    }
-    struct list;
-    typedef struct list list;
-    struct list{
-        int size;
-        node * head;
-    }
-    list * construct_list(){
-        list * new_list = malloc(sizeof(list));
-        (*new_list).size = 0;
-        (*new_list).head = NULL;
-        return new_list;
-    }
-    void destruct_list(list * l){
-        if(l){
-            destruct_node((*l).head);
-        }
-        free(l);
-    }
-    void insert_list(list * l,int id){
-        if(!p){
-            return;
-        }
-        if(!(*l).head){
-            (*l).head = construct_node();
-            return;
-        }
-        // node ** next = &(*l).head;
-        // while(*next){
-        //     *next = &(**next).next; //(*next)->next 
-        // }
-        // *next = construct_node(id);
-        node*n = construct_node(id);
-        insert_node((*p).head,n); // insert up é só colocar (*p).head = insert_node_up()
-    }
-    void insert_node(node * h,node * n){
-        if(!(*h).next){
-            (*h).next = n;
+        node *next;
+        node *prev;
+    };
+    void insert_list(node **n,int id){
+        if(!*n){
+            (*n) = malloc(sizeof(node));
+            (*n) -> next = *n;
+            (*n) -> prev = *n;
+            (*n) -> id = id;
         }else{
-            insert_node((*h).next,n);
+            node * head = *n;
+            node * tail = (*n)-> prev;
+            node * aux = malloc(sizeof(node));
+            aux-> id = id;
+            aux-> prev = tail;
+            aux -> next = head;
+            tail -> next = aux;
+            head -> prev = aux;
         }
     }
-    node * insert_node_up(node *h,node *n){
-        if((*n).id<(*h).id){
-            (*n).next = h;
-            return n;
-        }
-        if(!(*h).next){
-            (*h).next = n;
-            return h;
-        }
-        (*h).next = insert_node_up((*h).next,n)
-        return h;
-    }
-    void insert_note_point(node **h,node *n){
-        if ((*n).id<(**h).id){///(*h)->id
-            (*n).next = *h;
-            *h = n;
-            return;
-        }
-        if (!(**h).next){ // (*h)->next
-            (*h).next = n;
-            return;
-        }
-        insert_note_point(&(*h).next,n);
-    }
-    void construct_node(int id){
-        node * new_node = malloc(sizeof(node));
-        (*new_node).id = id;
-        (*new_node).next = NULL;
-        return new_node;
-    }
+    // void insert_list_back(node **n,int id){
+    //     aux->next = head;
+    //     head->prev = aux;
+    //     aux -> prev = tail;
+    //     tail-> next = aux;
+    // }  trocar no elso para funcionar
+
 #endif
 #ifndef SORT_ARRAY_H
 #define SORT_ARRAY_H
@@ -227,6 +321,7 @@
         }
     }
 #endif
+
 #ifdef RANDOM_FUNCTION_H
 #define RANDOM_FUNCTION_H
     void swap(int * number_1,int * number_2){

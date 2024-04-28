@@ -71,7 +71,7 @@
     }
     void sort_d_array(d_array *v){
          if (v){
-             mergesort((*v).data;(*v).size);
+             mergesort((*v).data,(*v).size);
          }
     }
     int get_index_d_array(d_array *v,int search_value){
@@ -303,26 +303,26 @@
             return;
         }
         int left_size = array_size/2;
-        int right_size = array_size/2 + (array_size%2);
+        int right_size = array_size/2 + (array_size&1);
         mergesort(array,left_size);
         mergesort(array+left_size,right_size);
         merge(array,array+left_size,left_size,right_size);
     }
     void select_sort(int *array,int size){
-        int minimum_element;
-        for(int i = 0;i<size;++i){
-            minimum_element = i;
-            for(int j = 0;j<size;j++){
-                if(array[minimum_element] > array[j]){
-                    minimum_element = j;
+        int index_minimun;                              
+        for(int i=0;i<size-1;i++){                      
+            index_minimun = i;                          
+            for(int j=i+1;j<size;j++){                  
+                if(array[index_minimun] > array[j]){   
+                    index_minimun = j;                   
                 }
             }
-            swap(array[minimum_element],array[i]);
+            swap(&array[index_minimun],&array[i]);      
         }
     }
 #endif
 
-#ifdef RANDOM_FUNCTION_H
+#ifndef RANDOM_FUNCTION_H
 #define RANDOM_FUNCTION_H
     void swap(int * number_1,int * number_2){
         int temporary = *number_1;

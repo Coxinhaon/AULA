@@ -57,16 +57,16 @@ void select_sort_with_names_decreasing(char **names,int *wages,int size){
         swap_names(names,index_maximun,i);
     }
 }
-void select_sort(int *wages,int size){
+void select_sort(int *array,int size){
     int index_minimun;                              
     for(int i=0;i<size-1;i++){                      
         index_minimun = i;                          
         for(int j=i+1;j<size;j++){                  
-            if(wages[index_minimun] > wages[j]){   
+            if(array[index_minimun] > array[j]){   
                 index_minimun = j;                   
             }
         }
-        swap(&wages[index_minimun],&wages[i]);      
+        swap(&array[index_minimun],&array[i]);      
     }
 }
 void exer_1(){
@@ -95,8 +95,41 @@ void exer_1(){
     }
     free(names);
 }
+void get_minor(int *array,int size){   
+    int i=1,count = 1; 
+    select_sort(array,size);
+    while(array[i++] == array[0]){
+        count++;
+    }
+    printf("%i * %i",array[0],count);
+}
+void get_maximun(int *array,int size){
+    int i=size-1,count = 0; 
+    select_sort(array,size);
+    while(array[i--] == array[9]){
+        count++;
+    }
+    printf("%i * %i",array[9],count);   
+}
+void exer_2(){
+    int *array = (int*)malloc(10*sizeof(int));
+    array[0] = 23;
+    array[1] = 30;
+    array[2] = 99;
+    array[3] = 99;
+    array[4] = 22;
+    array[5] = 22;
+    array[6] = 99;
+    array[7] = 99;
+    array[8] = 99;
+    array[9] = 99;
+    get_minor(array,10);
+    printf("\n");
+    get_maximun(array,10);
+    free(array);
+}
 
 int main(){
-
+    exer_2();
     return 0;
 }

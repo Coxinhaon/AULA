@@ -60,7 +60,7 @@ void exer_2(){
     FILE* arq = fopen("palavra.txt","w");
     fprintf(arq,line);
     fclose(arq);
-    FILE * arq = fopen("palavra.tx")
+    FILE * arq = fopen("palavra.tx","r");
 
     free(line);
 }

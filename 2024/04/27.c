@@ -69,6 +69,22 @@ void select_sort(int *array,int size){
         swap(&array[index_minimun],&array[i]);      
     }
 }
+void get_minor(int *array,int size){   
+    int i=1,count = 1; 
+    select_sort(array,size);
+    while(array[i++] == array[0]){
+        count++;
+    }
+    printf("%i * %i",array[0],count);
+}
+void get_maximun(int *array,int size){
+    int i=size-1,count = 0; 
+    select_sort(array,size);
+    while(array[i--] == array[9]){
+        count++;
+    }
+    printf("%i * %i",array[9],count);   
+}
 void exer_1(){
     int *wage=(int*)malloc(5*sizeof(int));
     char **names = (char **)malloc(5*sizeof(char*));
@@ -94,22 +110,6 @@ void exer_1(){
         free(names[i]);
     }
     free(names);
-}
-void get_minor(int *array,int size){   
-    int i=1,count = 1; 
-    select_sort(array,size);
-    while(array[i++] == array[0]){
-        count++;
-    }
-    printf("%i * %i",array[0],count);
-}
-void get_maximun(int *array,int size){
-    int i=size-1,count = 0; 
-    select_sort(array,size);
-    while(array[i--] == array[9]){
-        count++;
-    }
-    printf("%i * %i",array[9],count);   
 }
 void exer_2(){
     int *array = (int*)malloc(10*sizeof(int));

@@ -268,6 +268,15 @@ void print_students(students *list){
     print_students(list->next);
 }
 
+void destruct_students(students **list){
+    if(!(*list)->next){
+        free(*list);
+        return;
+    }
+    destruct_students(&(*list)->next);
+    free(*list);
+}
+
 int main(){
     students *list=NULL;
     char name[20] = "jao carlos";
@@ -277,6 +286,6 @@ int main(){
     add_student_sort(&list,name,44);
     add_student_sort(&list,name,33);
     print_students(list);
-    free(list);
+    destruct_students(&list);
     return 0;
 }

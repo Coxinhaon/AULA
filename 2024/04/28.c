@@ -151,16 +151,84 @@ void add_product_sort(product ** list,int cod,float price,int quant){
     }
     add_product_sort(&(*list)->next,cod,price,quant);
 }
+struct students;
+typedef struct students students;
+struct students{
+    char name[50];
+    float note;
+    students *next;
+    students *prev;
+};
+
+void add_student(students **list,char name[],float note){
+    if(!(*list)){
+        *list = malloc(sizeof(students));
+        strcpy((*list)->name,name);
+        (*list)->note = note;
+        (*list)->next = NULL;
+        (*list)->prev = NULL;
+        return;
+    }
+    if(!((*list)->next)){
+        students *new = malloc(sizeof(students));
+        strcpy(new->name,name);
+        new->note = note;
+        new->next = NULL;
+        new->prev = *list;
+        (*list)->next = new;
+        return;
+    }
+    add_student(&(*list)->next,name,note);
+}
+void add_student_back(students **list,char name[],float note){
+    if(!(*list)){
+        *list = malloc(sizeof(students));
+        strcpy((*list)->name,name);
+        (*list)->note = note;
+        (*list)->next = NULL;
+        (*list)->prev = NULL;
+        return;
+    }else{
+        students *new =  malloc(sizeof(students));
+        strcpy(new->name,name);
+        new->note = note;
+        new->next = *list;
+        new->prev = NULL;
+        *list = new;
+    }
+}
+void remove_student(students**list,char name[]){
+    if(!(*list)){
+        return;
+    }
+    
+    if(!(strcmp((*list)->name,name))){
+        students *next = (*list)->next;
+        free(*list);
+        *list = next;
+        return;
+    }
+    remove_student(&(*list)->next,name);
+}
+void print_students(students *list){
+    if(!list){
+        return;
+    }
+    printf("%s %.2f\n",list->name,list->note);
+    print_students(list->next);
+}
 
 int main(){
-    product *list = contruct_product();
-    add_product_sort(&list,12,123,22);
-    add_product_sort(&list,10,1233,10);
-    add_product_sort(&list,11,1233,10);
-    add_product_sort(&list,13,1233,10);
-
-    print_products(list);
-
+    students *list=NULL;
+    char name[20] = "VAI SE FUDE";
+    add_student(&list,name,55);
+    add_student(&list,name,22);
+    add_student(&list,name,11);
+    add_student(&list,name,33);
+    add_student(&list,name,44);
+    remove_student(&list,name);
+    add_student_back(&list,name,55);
+    print_students(list);
     free(list);
     return 0;
 }

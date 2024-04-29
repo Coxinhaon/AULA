@@ -197,6 +197,32 @@ void add_student_back(students **list,char name[],float note){
         *list = new;
     }
 }
+void add_student_sort(students **list,char name[],float note){
+    if(!(*list)){
+        *list = malloc(sizeof(students));
+        strcpy((*list)->name,name);
+        (*list)->note = note;
+        (*list)->next = NULL;
+        (*list)->prev = NULL;
+        return;
+    }
+    if((*list)->next==NULL || (note>=(*list)->note  && note <= (*list)->next->note)){
+        students *new = malloc(sizeof(students));
+        strcpy(new->name,name);
+        new->note = note;
+        new->prev = *list;
+        if(!(*list)->next){
+            new->next = NULL;
+        }else{
+            (*list)->next->prev = new;
+            new->next = (*list)->next;
+        }
+        (*list)->next = new;
+
+        return;
+    }
+    add_student_sort(&(*list)->next,name,note);
+}
 void remove_student(students**list,char name[]){
     if(!(*list)){
         return;
@@ -221,13 +247,11 @@ void print_students(students *list){
 int main(){
     students *list=NULL;
     char name[20] = "VAI SE FUDE";
-    add_student(&list,name,55);
-    add_student(&list,name,22);
-    add_student(&list,name,11);
-    add_student(&list,name,33);
-    add_student(&list,name,44);
-    remove_student(&list,name);
-    add_student_back(&list,name,55);
+    add_student_sort(&list,name,55);
+    add_student_sort(&list,name,22);
+    add_student_sort(&list,name,11);
+    add_student_sort(&list,name,44);
+    add_student_sort(&list,name,33);
     print_students(list);
     free(list);
     return 0;

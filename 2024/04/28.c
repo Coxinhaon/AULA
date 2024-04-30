@@ -3,11 +3,14 @@
 #include <string.h>
 
 // typedef struct product{
+//
 //     int cod;
 //     char description[50];
 //     float price;
 // }product;
+//
 // void swap_products(product * product_1,product *product){
+//
 //     int cod_aux;
 //     char desc_aux[50];
 //     float price_aux;
@@ -24,21 +27,31 @@
 //     product_1->price = product->price;
 //     product->price = price_aux;
 // }
+//
 // void selectsort_products(product * products,int size){
+//
 //     int minor_index;
+//
 //     for(int i=0;i<size;i++){
+//
 //         minor_index = i;
+//
 //         for(int j=i+1;j<size;j++){
+//
 //             if(products[j].cod<products[minor_index].cod){
 //                 minor_index = j;
 //             }
 //         }
+//
 //         swap_products(&products[minor_index],&products[i]);
 //     }
 // }
 // void exer_1(){
+//
 //     product *products = malloc(12*sizeof(product));
+//
 //     for(int i =0;i<12;i++){
+//
 //         printf("escreva o codigo ");
 //         scanf("%i",&products[i].cod);
 //         printf("escreva a descrição ");
@@ -47,31 +60,33 @@
 //         printf("escreva o preço ");
 //         scanf("%f",&products[i].price); 
 //     }
+//
 //     selectsort_products(products,12);
+//
 //     for(int i=0;i<12;i++){
+//
 //         printf("\n Codigo: %i Descrição: %s Preço: %.2f",products[i].cod,products[i].description,products[i].price);
 //     }
+//
 //     free(products);
 // }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// typedef struct product{
-//     int cod;
-//     float price;
-//     int quant;
-//     product*next;
-// }product;
-    // struct node;
-    // typedef struct node node;
+
 struct product;
+
 typedef struct product product;
+
 struct product{
+
     int quant;
     int cod;
     float price;
     product *next;
+
 };
 
 product * contruct_product(){
+
     product * list = malloc(sizeof(product));
     list->cod = 0;
     list->price = 0;
@@ -81,16 +96,21 @@ product * contruct_product(){
 }
 
 void add_product(product *list,int cod,float price,int quant){
+
     if(!(list)){
         return;
     }
+
     if(list->price == 0){
+
         list->cod = cod;
         list->price = price;
         list->quant = quant;
         return;
     }
+
     if(!(list->next)){
+
         list->next = malloc(sizeof(product));
         product *next = list->next;
         next->cod = cod;
@@ -99,48 +119,64 @@ void add_product(product *list,int cod,float price,int quant){
         next->next = NULL;
         return;
     }
+
     add_product(list->next,cod,price,quant);
 }
 
 void print_products(product *list){
+
     if(!(list)){
         return;
     }
+
     if(!(list->next)){
+
         printf("\ncodigo: %i preco: %.2f quantidade: %i",list->cod,list->price,list->quant);
         return;
     }
+
     printf("\ncodigo: %i preco: %.2f quantidade: %i",list->cod,list->price,list->quant);
     print_products(list->next);
 
 }
 
 void remove_product(product **list,int cod){
+
     if(!(list)){
         return;
     }
+
     if((*list)->cod == cod){
+
         product *next = (*list)->next;
         free(*list);
         *list = next;
         return;
     } 
+
     if(!(*list)->next){
         return;
     }
+
     remove_product(&(*list)->next,cod);
+
 }
 void add_product_sort(product ** list,int cod,float price,int quant){
+
     if(!list){
         return;
     }
+
     if((*list)->cod == 0 && (*list)->price == 0 && (*list)->quant == 0){
+
         (*list)->cod = cod;
         (*list)->price = price;
         (*list)->quant = quant;
         (*list)->next = NULL;
     }
+
     if( (*list)->next == NULL || (cod>(*list)->cod && (cod < (*list)->next->cod))){
+
         product * new = malloc(sizeof(product));
         new->cod = cod;
         new->price = price;
@@ -149,6 +185,7 @@ void add_product_sort(product ** list,int cod,float price,int quant){
         (*list)->next = new;
         return;
     }
+
     add_product_sort(&(*list)->next,cod,price,quant);
 }
 
@@ -166,7 +203,6 @@ struct students{
 students * new_student(int note,char name[],students *next,students *prev){
 
     students *list = malloc(sizeof(students));
-
     strcpy(list->name,name);
     list->note = note;
     list->next = next;
@@ -269,7 +305,7 @@ void print_students(students *list){
     if(!list){
         return;
     }
-    
+
     printf("%s %.2f\n",list->name,list->note);
     print_students(list->next);
 }
@@ -290,7 +326,7 @@ int main(){
     add_student_sort(&list,"pedro maneiro",11);
     add_student_sort(&list,"carlos maneiro",44);
     add_student_sort(&list,"amilton maneiro",33);
-    add_student_back(&list,"otario",66);
+    add_student_back(&list,"otario",666);
     add_student(&list,"carlos otario",222);
     print_students(list);
     destruct_students(&list);

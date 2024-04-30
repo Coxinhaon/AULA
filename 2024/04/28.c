@@ -125,13 +125,13 @@ void remove_product(product **list,int cod){
         *list = next;
         return;
     } 
-    if(!((*list)->next)){
+    if(!(*list)->next){
         return;
     }
     remove_product(&(*list)->next,cod);
 }
 void add_product_sort(product ** list,int cod,float price,int quant){
-    if(!(list)){
+    if(!list){
         return;
     }
     if((*list)->cod == 0 && (*list)->price == 0 && (*list)->quant == 0){
@@ -159,7 +159,14 @@ struct students{
     students *next;
     students *prev;
 };
-
+students * new_student(int note,char name[],students *next,students *prev){
+    students *list = malloc(sizeof(students));
+    strcpy(list->name,name);
+    list->note = note;
+    list->next = next;
+    list->prev = prev;
+    return list;
+}
 void add_student(students **list,char name[],float note){
     if(!(*list)){
         *list = malloc(sizeof(students));
@@ -199,48 +206,28 @@ void add_student_back(students **list,char name[],float note){
 }
 void add_student_sort(students **list,char name[],float note){
     if(!(*list)){
-        *list = malloc(sizeof(students));
-        strcpy((*list)->name,name);
-        (*list)->note = note;
-        (*list)->next = NULL;
-        (*list)->prev = NULL;
+        *list = new_student(note,name,NULL,NULL);
         return;
     }
     if((note>=(*list)->note  && note <= (*list)->next->note)){
-        students *new = malloc(sizeof(students));
-        strcpy(new->name,name);
-        new->note = note;
-        new->prev = *list;
+        students *new = new_student(note,name,(*list)->next,*list);
         (*list)->next->prev = new;
-        new->next = (*list)->next;
         (*list)->next = new;
         return;
     }
     if(note>=(*list)->note && !(*list)->next){
-        students *new = malloc(sizeof(students));
-        strcpy(new->name,name);
-        new->note = note;
-        new->next = NULL;
-        new->prev = *list;
+        students *new = new_student(note,name,NULL,*list);
         (*list)->next = new;
         return;
     }
     if(note<=(*list)->note && !(*list)->next){
-        students *new = malloc(sizeof(students));
-        strcpy(new->name,name);
-        new->note = note;
-        new->next = *list;
-        new->prev = NULL;
+        students *new = new_student(note,name,*list,NULL);
         (*list)->prev = new ;
         *list = new;
         return;
     }
     if(note<=(*list)->note && note<=(*list)->next->note){
-        students *new = malloc(sizeof(students));
-        strcpy(new->name,name);
-        new->note = note;
-        new->prev = NULL;
-        new->next = *list;
+        students *new = new_student(note,name,*list,NULL);
         (*list)->prev = new;
         *list = new;
         return;

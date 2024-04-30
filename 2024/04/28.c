@@ -151,106 +151,125 @@ void add_product_sort(product ** list,int cod,float price,int quant){
     }
     add_product_sort(&(*list)->next,cod,price,quant);
 }
+
 struct students;
+
 typedef struct students students;
+
 struct students{
     char name[50];
     float note;
     students *next;
     students *prev;
 };
+
 students * new_student(int note,char name[],students *next,students *prev){
+
     students *list = malloc(sizeof(students));
+
     strcpy(list->name,name);
     list->note = note;
     list->next = next;
     list->prev = prev;
+
     return list;
 }
+
 void add_student(students **list,char name[],float note){
+
     if(!(*list)){
-        *list = malloc(sizeof(students));
-        strcpy((*list)->name,name);
-        (*list)->note = note;
-        (*list)->next = NULL;
-        (*list)->prev = NULL;
+
+        *list = new_student(note,name,NULL,NULL);
         return;
     }
+
     if(!((*list)->next)){
-        students *new = malloc(sizeof(students));
-        strcpy(new->name,name);
-        new->note = note;
-        new->next = NULL;
-        new->prev = *list;
+
+        students *new = new_student(note,name,NULL,*list);
         (*list)->next = new;
         return;
     }
+
     add_student(&(*list)->next,name,note);
 }
+
 void add_student_back(students **list,char name[],float note){
+
     if(!(*list)){
-        *list = malloc(sizeof(students));
-        strcpy((*list)->name,name);
-        (*list)->note = note;
-        (*list)->next = NULL;
-        (*list)->prev = NULL;
+
+        students *list = new_student(note,name,NULL,NULL);
         return;
     }else{
-        students *new =  malloc(sizeof(students));
-        strcpy(new->name,name);
-        new->note = note;
-        new->next = *list;
-        new->prev = NULL;
+
+        students *new =  new_student(note,name,*list,NULL);
         *list = new;
     }
 }
+
 void add_student_sort(students **list,char name[],float note){
+
     if(!(*list)){
         *list = new_student(note,name,NULL,NULL);
         return;
     }
+
     if((note>=(*list)->note  && note <= (*list)->next->note)){
+
         students *new = new_student(note,name,(*list)->next,*list);
         (*list)->next->prev = new;
         (*list)->next = new;
         return;
     }
+
     if(note>=(*list)->note && !(*list)->next){
+
         students *new = new_student(note,name,NULL,*list);
         (*list)->next = new;
         return;
     }
+
     if(note<=(*list)->note && !(*list)->next){
+
         students *new = new_student(note,name,*list,NULL);
         (*list)->prev = new ;
         *list = new;
         return;
     }
+
     if(note<=(*list)->note && note<=(*list)->next->note){
+
         students *new = new_student(note,name,*list,NULL);
         (*list)->prev = new;
         *list = new;
         return;
     }
+
     add_student_sort(&(*list)->next,name,note);
+
 }
+
 void remove_student(students**list,char name[]){
+
     if(!(*list)){
         return;
     }
     
     if(!(strcmp((*list)->name,name))){
+
         students *next = (*list)->next;
         free(*list);
         *list = next;
         return;
     }
+
     remove_student(&(*list)->next,name);
+
 }
 void print_students(students *list){
     if(!list){
         return;
     }
+    
     printf("%s %.2f\n",list->name,list->note);
     print_students(list->next);
 }
@@ -265,13 +284,14 @@ void destruct_students(students **list){
 }
 
 int main(){
-    students *list=NULL;
-    char name[20] = "jao carlos";
-    add_student_sort(&list,name,55);
-    add_student_sort(&list,name,22);
-    add_student_sort(&list,name,11);
-    add_student_sort(&list,name,44);
-    add_student_sort(&list,name,33);
+    students *list = NULL;
+    add_student_sort(&list,"jao maneiro",55);
+    add_student_sort(&list,"carlos maneiro",22);
+    add_student_sort(&list,"pedro maneiro",11);
+    add_student_sort(&list,"carlos maneiro",44);
+    add_student_sort(&list,"amilton maneiro",33);
+    add_student_back(&list,"otario",66);
+    add_student(&list,"carlos otario",222);
     print_students(list);
     destruct_students(&list);
     return 0;

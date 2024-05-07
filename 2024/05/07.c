@@ -88,14 +88,13 @@ void add_students(Students *list,char name[],int reg_number,float first_note,flo
 
 }
 
-int main(){
-    //exer_2();
+void exer_3(){
 
-    Students * list = malloc(5*sizeof(Students));
+     Students * list = malloc(5*sizeof(Students));
 
     char name[50];
     int reg_number,index_min,index_max,index_max_first;
-    float first_note, second_note, third_note, max_mean, min_mean;
+    float first_note, second_note, third_note, max_mean, min_mean,mean;
 
     for(int i = 0; i < 5;i ++){
 
@@ -126,17 +125,19 @@ int main(){
     index_max_first = 0;
 
     for( int i = 0; i < 5; i ++){
-        
-        if( max_mean < (list[i].first_note + list[i].second_note + list[i].third_note) / 3 ){
 
-            max_mean = (list[i].first_note + list[i].second_note + list[i].third_note) / 3;
+        mean = (list[i].first_note + list[i].second_note + list[i].third_note) / 3;
+        
+        if( max_mean <  mean){
+
+            max_mean = mean;
             index_max = i;
 
         }
 
-        if( min_mean > (list[i].first_note + list[i].second_note + list[i].third_note) / 3 ){
+        if( min_mean > mean){
 
-            min_mean = (list[i].first_note + list[i].second_note + list[i].third_note) / 3;
+            min_mean = mean;
             index_min = i;
 
         }
@@ -147,7 +148,7 @@ int main(){
 
         }
 
-        if ((( list[i].first_note + list[i].second_note + list[i].third_note )  / 3) >= 6 ){
+        if (mean >= 6 ){
 
             printf("\n Nome: %s foi aprovado",list[i].name);
 
@@ -166,6 +167,37 @@ int main(){
 
 
     free(list);
+
+}
+
+typedef struct  School{
+
+    char name[50];
+    int registration_number;
+    int code_displine;
+    float note_1;
+    float note_2;
+
+}School;
+
+void add_school(School *list,char name[],int reg_number,int code_displine,float note_1,float note_2){
+
+    strcpy(list->name,name);
+    list->registration_number = reg_number;
+    list->code_displine = code_displine;
+    list->note_1 = note_1;
+    list->note_2 = note_2;
+
+}
+
+
+
+
+
+int main(){
+    //exer_2();
+    //exer_3();
+   
     return 1;
 }
 

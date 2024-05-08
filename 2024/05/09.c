@@ -31,6 +31,7 @@ typedef struct Schedule {
     
 }Schedule;
 
+
 Schedule construct_schedule(){
 
     Schedule list;
@@ -42,8 +43,24 @@ Schedule construct_schedule(){
     return list;
 }
 
-void add_contact(Schedule * list,Contact contact){
+void add_contact(Schedule * schedule,Contact contact){
     
+    if (!schedule->list){
+
+        schedule->list = malloc(sizeof(contact));
+        schedule->capacity ++;
+
+    }
+
+    if(schedule->capacity == schedule->size){
+
+        schedule->capacity *= 2;
+        realloc(schedule->list, schedule->capacity * sizeof(Contact));
+
+    }
+
+
+    schedule->list[schedule->size++] = contact;
 }
 
 

@@ -184,7 +184,7 @@ void view_contacts(Schedule *schedule){
 
     for( int i = 0; i < schedule->size; i ++){
 
-        printf("\nNome: %s",schedule->list[i].name);
+        printf("\nNome: %s\n",schedule->list[i].name);
 
     }
 
@@ -211,6 +211,76 @@ void get_contact_name(Schedule * schedule){
 
 }
 
+void get_contact_month(Schedule * schedule){
+
+    int month;
+    Contact contact;
+
+    printf("\nEscreva o mes que deseja pesquisar");
+    scanf("%i",&month);
+
+
+    for(int i = 0; i < schedule->size; i ++){
+
+        if (month == schedule->list[i].birth_date.month){
+
+            contact = get_contact(schedule,i);
+
+            printf("Nome: %s \nEmail: %s \nEndereço: %s \nTelefone: %s \nData de nascimento %i/%i/%i \nNota: %s",contact.name,contact.email,contact.adress,contact.phone,contact.birth_date.day,contact.birth_date.month,contact.birth_date.year,contact.note);
+
+        }
+    }
+
+}
+
+void get_contact_day(Schedule * schedule){
+
+    int month,day;
+    Contact contact;
+
+    printf("\nEscreva o dia que deseja pesquisar");
+    scanf("%i",&day);
+
+    printf("\nEscreva o mes que deseja pesquisar");
+    scanf("%i",&month);
+
+
+    for(int i = 0; i < schedule->size; i ++){
+
+        if (month == schedule->list[i].birth_date.month && day == schedule->list[i].birth_date.day ){
+
+            contact = get_contact(schedule,i);
+
+            printf("Nome: %s \nEmail: %s \nEndereço: %s \nTelefone: %s \nData de nascimento %i/%i/%i \nNota: %s",contact.name,contact.email,contact.adress,contact.phone,contact.birth_date.day,contact.birth_date.month,contact.birth_date.year,contact.note);
+
+        }
+    }
+
+}
+
+void remove_contact_name(Schedule * schedule){
+
+    char name[50];
+    Contact contact;
+
+    printf("\nEscreva o nome que deseja procurar ");
+    scanf(" %s",&name);
+
+    for(int i = 0; i < schedule->size; i ++){
+
+        if (strcmp(name,schedule->list[i].name) == 0){
+
+            contact = get_contact(schedule,i);
+
+            schedule->size --;
+
+            remove_contact(schedule,i);
+
+        }
+    }
+
+}
+
 
 
 
@@ -222,7 +292,7 @@ int main(){
 
     while (menu != 0){
 
-        printf("\nEscreva \n0 == Sair \n1 == adicionar contato \n2 == ver contatos \n3 == Pesquisar por nome ");
+        printf("\nEscreva \n0 == Sair \n1 == adicionar contato \n2 == ver contatos \n3 == Pesquisar por nome \n 4 == Pesquisar por mês \n 5 == Pesquisar por dia e mês");
         scanf("%i",&menu);
 
         switch (menu)
@@ -242,6 +312,24 @@ int main(){
         case 3:
 
             get_contact_name(&schedule);
+
+            break;
+        
+        case 4:
+
+            get_contact_month(&schedule);
+
+            break;
+
+        case 5:
+
+            get_contact_day(&schedule);
+
+            break;
+
+        case 6:
+
+            remove_contact_name(&schedule);
 
             break;
         

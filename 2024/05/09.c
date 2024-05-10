@@ -292,7 +292,7 @@ int main(){
 
     while (menu != 0){
 
-        printf("\nEscreva \n0 == Sair \n1 == adicionar contato \n2 == ver contatos \n3 == Pesquisar por nome \n 4 == Pesquisar por mês \n 5 == Pesquisar por dia e mês");
+        printf("\nEscreva \n0 == Sair \n1 == adicionar contato \n2 == ver contatos \n3 == Pesquisar por nome \n 4 == Pesquisar por mês \n 5 == Pesquisar por dia e mês \n 6 == Remover pessoas");
         scanf("%i",&menu);
 
         switch (menu)

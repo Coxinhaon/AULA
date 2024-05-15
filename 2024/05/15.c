@@ -40,6 +40,8 @@ Queue  construct_queue(){
     new_Queue.tail = NULL;
     new_Queue.top = NULL;
 
+    return new_Queue;
+
 };
 
 void enqueue(Queue * queue,int data){
@@ -89,6 +91,23 @@ int peek(Queue * queue){
 
 int main(){
 
+    Queue queue = construct_queue();
+
+
+    enqueue(&queue,40);
+    enqueue(&queue,10);
+    enqueue(&queue,50);
+    enqueue(&queue,30);
+    enqueue(&queue,20);
+    enqueue(&queue,10);
+
+    printf(" %i ",dequeue(&queue));
+    printf(" %i ",dequeue(&queue));
+    printf(" %i ",dequeue(&queue));
+    printf(" %i ",dequeue(&queue));
+    printf(" %i ",dequeue(&queue));
+    printf(" %i ",dequeue(&queue));
+    printf(" %i ",dequeue(&queue));
 
 
 

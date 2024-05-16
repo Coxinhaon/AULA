@@ -111,7 +111,6 @@ int main(){
 
     Queue queue = construct_queue();
 
-
     enqueue(&queue,40);
     enqueue(&queue,10);
     enqueue(&queue,50);

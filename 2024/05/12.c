@@ -103,12 +103,18 @@ int main(){
     push(&stack,4);
     push(&stack,5);
 
-    printf(" \n %i ",pop(&stack));
-    printf(" \n %i ",peek(&stack));
-    printf(" \n %i ",getsize(&stack));
+    printf(" %i ",pop(&stack));
+    printf(" %i ",pop(&stack));
+    printf(" %i ",pop(&stack));
+    printf(" %i ",pop(&stack));
+    printf(" %i ",pop(&stack));
+    printf(" %i ",pop(&stack));
+    printf(" %i ",pop(&stack));
 
 
-    
+
+
+    destruct(&stack);
 
     return 1;
 }

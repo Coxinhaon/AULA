@@ -76,6 +76,22 @@ int getsize(Stack * stack){
 
 }
 
+void destruct(Stack * stack){
+
+    destruct_node(stack->top);
+
+}
+
+void destruct_node(Node * current){
+
+    if ( ! current )
+        return;
+
+    destruct_node(current->prev);
+    free(current);
+
+}
+
 
 int main(){
 
@@ -92,7 +108,7 @@ int main(){
     printf(" \n %i ",getsize(&stack));
 
 
-
+    
 
     return 1;
 }

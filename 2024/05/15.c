@@ -86,6 +86,24 @@ int peek(Queue * queue){
 
 }
 
+void destruct(Queue * queue){
+
+    destruct_node(queue->top);
+
+}
+
+
+void destruct_node(Node *  current){
+
+    if ( !current )
+        return;
+
+
+    destruct(current->prev);
+    free(current);
+
+}
+
 
 
 
@@ -109,7 +127,7 @@ int main(){
     printf(" %i ",dequeue(&queue));
     printf(" %i ",dequeue(&queue));
 
-
+    destruct(&queue);
 
     return 1;
 }

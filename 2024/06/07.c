@@ -74,7 +74,7 @@ void merge(int *left_array,int * right_array,int left_size,int right_size)
     }
     while (j<right_size)
     {
-        left_array[k++] = temporary_right[i++];
+        left_array[k++] = temporary_right[j++];
     }
     free(temporary_left);
     free(temporary_right);

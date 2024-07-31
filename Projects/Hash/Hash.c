@@ -87,7 +87,6 @@
         if(count>(**hash).size/2)
         {
             Hash * new_hash = constructor_hash((**hash).size*2);
-
         }
         current->next = new_node;
     }

@@ -30,13 +30,41 @@
         return new_hash;
     }
 
-    int iterator_hash(Hash * hash,node**current,int * value)
+    typedef struct Iterator
     {
-        int i = 0;
-        while(!(*current))
+        Hash * hash;
+        node * current;
+        int array_index;
+    }Iterator;
+
+    Iterator * constructor_iterator(Hash * hash)
+    {
+        Iterator * new_iterator = malloc(sizeof(Iterator));
+        new_iterator->array_index = 0;
+        new_iterator->current = NULL;
+        new_iterator->hash = hash;
+        return new_iterator;
+    }
+    
+
+    int iterator_hash(Iterator * iterator,int * value)
+    {
+        if(!iterator->current)
         {
-            (*current) = hash->array[i++];
+            while(!iterator->current && iterator->array_index < iterator->hash->size)
+            {
+                iterator->current = iterator->hash->array[iterator->array_index++];
+            }
+            *value = iterator->current->data;
+            return 1;
         }
+        else
+        {
+            *value = iterator->current->data;
+            iterator->current = iterator->current->next;
+            return 1;
+        }
+        return 0;
 
     }
 

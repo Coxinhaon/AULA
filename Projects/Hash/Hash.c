@@ -85,7 +85,7 @@
         if(count>(**hash).size/2)
         {
             Hash * new_hash = constructor_hash((**hash).size*2);
-            Iterator * iterator = 
+            Iterator * iterator = constructor_iterator(*hash);
         }
         current->next = new_node;
     }

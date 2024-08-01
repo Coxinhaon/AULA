@@ -6,14 +6,16 @@
     struct node
     {
         int data;
+        int key;
         node * next;
     };
 
-    node * constructor_node(int data,node *next)
+    node * constructor_node(int key,int data,node *next)
     {
         node * new_node = malloc(sizeof(node));
         new_node->data = data;
         new_node->next = next;
+        new_node->key = key;
         return new_node;
     }
     
@@ -44,8 +46,7 @@
         new_iterator->current = NULL;
         new_iterator->hash = hash;
         return new_iterator;
-    }
-    
+    }    
 
     int iterator_hash(Iterator * iterator,int * value)
     {
@@ -55,23 +56,20 @@
             {
                 iterator->current = iterator->hash->array[iterator->array_index++];
             }
+            if(!iterator->current) return 0;
             *value = iterator->current->data;
+            iterator->current = iterator->current->next;    
             return 1;
         }
-        else
-        {
-            *value = iterator->current->data;
-            iterator->current = iterator->current->next;
-            return 1;
-        }
-        return 0;
-
+        *value = iterator->current->data;
+        iterator->current = iterator->current->next;
+        return 1;
     }
 
-    void add_hash(Hash** hash,int data)
+    void add_hash(Hash** hash,int keyHash,int data)
     {
-        int key = data% (**hash).size;
-        node * new_node = constructor_node(data,NULL);
+        int key = keyHash% (**hash).size;
+        node * new_node = constructor_node(keyHash,data,NULL);
         if(!(**hash).array[key])
         {
             (**hash).array[key] = new_node;
@@ -87,6 +85,7 @@
         if(count>(**hash).size/2)
         {
             Hash * new_hash = constructor_hash((**hash).size*2);
+            Iterator * iterator = 
         }
         current->next = new_node;
     }

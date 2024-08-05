@@ -26,9 +26,12 @@
 
     Hash * constructor_hash(int size)
     {
-        Hash * new_hash = malloc(sizeof(Hash*));
+        Hash * new_hash = malloc(sizeof(Hash));
         new_hash->array = (node**)malloc(size*sizeof(node*));
         new_hash->size = size;
+        for (int i = 0; i < size; i++) {
+        new_hash->array[i] = NULL;
+        }
         return new_hash;
     }
 
@@ -58,11 +61,11 @@
                 iterator->current = iterator->hash->array[iterator->array_index++];
             }
             if(!iterator->current) return 0;
-            value = iterator->current;
+            *value = iterator->current;
             iterator->current = iterator->current->next;    
             return 1;
         }
-        value = iterator->current;
+        *value = iterator->current;
         iterator->current = iterator->current->next;
         return 1;
     }
@@ -105,14 +108,116 @@
             node* value;
             while(iterator_hash(iterator,&value))
             {
-                add_hash(new_hash,value->key,value->data);
+                add_hash(&new_hash,value->key,value->data);
             }
-            add_hash(new_hash,keyHash,data);
+            add_hash(&new_hash,keyHash,data);
             destruct_hash((*hash));
-            hash = new_hash;
+            *hash = new_hash;
             return;
         }
         current->next = new_node;
+    }
+
+    int main()
+    {
+        Hash *hash = constructor_hash(8);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        add_hash(&hash,23,23);
+        node  *value;
+        Iterator * iterator = constructor_iterator(hash);
+        while(iterator_hash(iterator,&value))
+        {
+            printf("\n%i",value->data);
+        }
+        destruct_hash(hash);
     }
     
 /// ########

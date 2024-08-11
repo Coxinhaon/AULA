@@ -61,6 +61,7 @@ void add_matrix_sparse(Sparse_Matrix * matrix,int data,int x,int y)
     current->down = new_value;
 
     first_node = matrix->node;
+    current = first_node;
     do
     {
         if (current->down == first_node)

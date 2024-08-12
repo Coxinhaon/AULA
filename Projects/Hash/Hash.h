@@ -90,7 +90,7 @@
     {   
         int key_hash = key%hash->size;
         node * current = hash->array[key_hash];
-        while (current->key!=key)
+        while (current->key!=key && current)
         {
             current = current->next;
         }

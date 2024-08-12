@@ -1,6 +1,6 @@
-
 #include <stdio.h>
 #include <stdlib.h>
+
 #ifndef BINARY_H
 #define BINARY_H
     typedef struct node node;

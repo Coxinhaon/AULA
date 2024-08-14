@@ -56,18 +56,16 @@ void add_matrix_sparse(Sparse_Matrix * matrix,int data,int x,int y)
             Node * new_node = construct_node(-1,-1,-1);
             current->next = new_node;
             new_node->next = first_node;
-            printf("make a X\n");
         }
         current = current->next;
     };
     first_node = current;
-    while (current->down->y<y && current->down != first_node);
+    while(current->down->y<y && current->down != first_node)
     {
         current = current->down;
     }
     new_value->down = current->down;
     current->down = new_value;
-    printf("current x = %i y = %i down \n",current->down->x,current->down->y);
 
     first_node = matrix->node;
     current = matrix->node;
@@ -78,7 +76,6 @@ void add_matrix_sparse(Sparse_Matrix * matrix,int data,int x,int y)
             Node * new_node = construct_node(-1,-1,-1);
             current->down = new_node;
             new_node->down = first_node;
-            printf("Make a Y\n");
         }
         current = current->down;
     };
@@ -89,7 +86,6 @@ void add_matrix_sparse(Sparse_Matrix * matrix,int data,int x,int y)
     }
     new_value->next = current->next;
     current->next = new_value;
-    printf("current x = %i y = %i next\n",current->next->x,current->next->y);
 }
 
 int get_matrix(Sparse_Matrix * matrix,int x,int y)
@@ -100,29 +96,29 @@ int get_matrix(Sparse_Matrix * matrix,int x,int y)
         while (current && x>0)
         {
             current = current->next;
-            if(current==matrix->node)return 0;            
+            if(current==matrix->node)return 0; 
+            x--;           
         }
         Node * first = current;
-        do
+        while (current->y<=y && current->down != first)
         {
             if(current->y == y)return current->data;
             current = current->down;
-        }
-        while (current->y<=y && current != first);
+        };
         return 0;
     }
     while (current && y>0)
     {
         current = current->down;
-        if(current==matrix->node)return 0;            
+        if(current==matrix->node)return 0; 
+        y--;           
     }
     Node * first = current;
-    do
+    while (current->x<=x && current->next != first)
     {
         current = current->next;
         if(current->x == x)return current->data;
-    }
-    while (current->x<=x && current != first);
+    };
     return 0;
 }
 
@@ -151,31 +147,24 @@ int main()
 {
     Sparse_Matrix * matrix = construct_sparse();
     add_matrix_sparse(matrix,1,1,1);
-    add_matrix_sparse(matrix,1,1,2);
-    add_matrix_sparse(matrix,1,1,3);
-    printf("\n");
-    add_matrix_sparse(matrix,1,2,2);
-    printf("\n");
-    add_matrix_sparse(matrix,1,3,3);
-    printf("x:%i Y:%i\n",matrix->size_x,matrix->size_y);
-    for (int i=1;i<=matrix->size_y;i++)
+    add_matrix_sparse(matrix,2,2,2);
+    add_matrix_sparse(matrix,3,3,3);
+    add_matrix_sparse(matrix,4,4,4);
+    add_matrix_sparse(matrix,5,5,5);
+    add_matrix_sparse(matrix,6,6,6);
+    add_matrix_sparse(matrix,7,7,7);
+    add_matrix_sparse(matrix,8,8,8);
+    add_matrix_sparse(matrix,9,9,9);
+    add_matrix_sparse(matrix,7,7,8);
+    for (int i=1;i<=matrix->size_x;i++)
     {
-        for(int j=1;j<=matrix->size_x;j++)
+        for(int j=1;j<=matrix->size_y;j++)
         {
             printf("%i ",get_matrix(matrix,j,i));
         }
         printf("\n");
     }
 
-    Node * current = matrix->node->next->down;
-
-    while (current != matrix->node->next)
-    {
-        printf("%i ",current->data);
-        current = current->next;
-    }
-    
-    
     //destruct_sparce(matrix);
 }
 
